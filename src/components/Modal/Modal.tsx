@@ -28,7 +28,7 @@ export default function Modal({ setShowModal }: PropsType) {
   const [authorAge, setAuthorAge] = useState<string | null>(null)
   const [bookName, setBookName] = useState('')
   const [bookGenre, setBookGenre] = useState('')
-  const [bookAuthor, setBookAuthor] = useState('')
+  const [bookAuthorId, setBookAuthorId] = useState<any>()
 
   const { loading, error, data } = useQuery(GET_ALL_AUTHORS)
 
@@ -59,12 +59,12 @@ export default function Modal({ setShowModal }: PropsType) {
       variables: {
         name: bookName,
         genre: bookGenre,
-        authorId: bookAuthor,
+        author_id: bookAuthorId,
       },
     })
     setBookName('')
     setBookGenre('')
-    setBookAuthor('')
+    setBookAuthorId(null)
     setShowModal(false)
   }
 
@@ -187,7 +187,7 @@ export default function Modal({ setShowModal }: PropsType) {
                 native: true,
               }}
               helperText='Select author from the list'
-              onChange={(event) => setBookAuthor(event.target.value)}
+              onChange={(event) => setBookAuthorId(Number(event.target.value))}
             >
               <option value=''></option>
               {data.authors.map((item: ItemType, index: number) => (
@@ -200,7 +200,7 @@ export default function Modal({ setShowModal }: PropsType) {
               type='submit'
               variant='contained'
               color='primary'
-              disabled={bookName && bookGenre && bookAuthor ? false : true}
+              disabled={bookName && bookGenre && bookAuthorId ? false : true}
             >
               Submit
             </SubmitButton>
@@ -211,21 +211,9 @@ export default function Modal({ setShowModal }: PropsType) {
   )
 }
 
-export const SpinnerWrapper = styled.div`
-  /* border: 1px solid red; */
-  margin: auto;
-  display: flex;
-  align-items: center;
-`
-export const ErrorText = styled.p`
-  /* border: 1px solid red; */
-  margin: auto;
-  padding: 70px 35px;
-  text-align: center;
-`
 
 /*---> Styles <---*/
-export const Overlay = styled.div`
+const Overlay = styled.div`
   /* border: 1px solid red; */
   display: flex;
   flex-direction: column;
@@ -238,7 +226,7 @@ export const Overlay = styled.div`
   background: rgba(0, 0, 0, 0.25);
 `
 
-export const AddModal = styled.div`
+const AddModal = styled.div`
   /* border: 1px solid yellow; */
   margin: auto;
   width: 40%;
@@ -275,11 +263,11 @@ export const AddModal = styled.div`
   }
 `
 
-export const Form = styled.form`
+const Form = styled.form`
   text-align: center;
 `
 
-export const ButtonsWrapper = styled.div`
+const ButtonsWrapper = styled.div`
   /* border: 1px solid yellow; */
   display: flex;
   justify-content: space-evenly;
@@ -287,32 +275,32 @@ export const ButtonsWrapper = styled.div`
   margin-bottom: 70px;
 `
 
-export const AuthorButton = styled(Button)`
+const AuthorButton = styled(Button)`
   width: 200px !important;
   height: 50px !important;
   text-transform: capitalize !important;
 `
 
-export const BookButton = styled(Button)`
+const BookButton = styled(Button)`
   width: 200px !important;
   height: 50px !important;
   text-transform: capitalize !important;
 `
 
-export const CloseIcon = styled(CloseCircleOutline)`
+const CloseIcon = styled(CloseCircleOutline)`
   /* border: 1px solid black; */
   width: 40px;
   color: #3f51b5;
   cursor: pointer;
 `
 
-export const CloseIconWrapper = styled.div`
+const CloseIconWrapper = styled.div`
   /* border: 1px solid yellow; */
   text-align: right;
   padding: 15px;
 `
 
-export const AuthorModal = styled.div`
+const AuthorModal = styled.div`
   /* border: 1px solid yellow; */
   margin: auto;
   width: 40%;
@@ -324,7 +312,7 @@ export const AuthorModal = styled.div`
   flex-direction: column;
 `
 
-export const BookModal = styled.div`
+const BookModal = styled.div`
   /* border: 1px solid yellow; */
   margin: auto;
   width: 40%;
@@ -336,7 +324,7 @@ export const BookModal = styled.div`
   flex-direction: column;
 `
 
-export const StyledInput = styled(TextField)`
+const StyledInput = styled(TextField)`
   width: 70% !important;
   height: 40px !important;
   margin-left: auto !important;
@@ -344,7 +332,7 @@ export const StyledInput = styled(TextField)`
   margin-bottom: 50px !important;
 `
 
-export const StyledSelect = styled(TextField)`
+const StyledSelect = styled(TextField)`
   width: 70% !important;
   /* height: 40px !important; */
   margin-left: auto !important;
@@ -352,11 +340,24 @@ export const StyledSelect = styled(TextField)`
   margin-bottom: 50px !important;
 `
 
-export const SubmitButton = styled(Button)`
+const SubmitButton = styled(Button)`
   width: 70% !important;
   height: 50px !important;
   text-transform: capitalize !important;
   margin-left: auto !important;
   margin-right: auto !important;
   margin-bottom: 60px !important;
+`
+
+const SpinnerWrapper = styled.div`
+  /* border: 1px solid red; */
+  margin: auto;
+  display: flex;
+  align-items: center;
+`
+const ErrorText = styled.p`
+  /* border: 1px solid red; */
+  margin: auto;
+  padding: 70px 35px;
+  text-align: center;
 `

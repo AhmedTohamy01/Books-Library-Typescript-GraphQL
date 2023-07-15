@@ -5,11 +5,11 @@ import { GET_BOOK } from '../../GraphQLQueries/GraphQLQueries'
 import Loader from 'react-loader-spinner'
 import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css'
 
-interface PropsType {
-  bookID: string
+type PropsType = {
+  bookID: number
 }
 
-interface ItemType {
+type ItemType = {
   id: string
   name: string
 }
@@ -31,7 +31,7 @@ export default function BookList({ bookID }: PropsType) {
       </>
     )
 
-  if (error)
+  if (error || !data?.books_by_pk)
     return (
       <>
         <Title>Book Information</Title>
@@ -46,19 +46,19 @@ export default function BookList({ bookID }: PropsType) {
       <Title>Book Information</Title>
       <StyledCard elevation={2}>
         <Text>
-          <span>Name:</span> {data.book.name}
+          <span>Name:</span> {data.books_by_pk.name}
         </Text>
         <Text>
-          <span>Genre:</span> {data.book.genre}
+          <span>Genre:</span> {data.books_by_pk.genre}
         </Text>
         <Text>
-          <span>Author:</span> {data.book.author.name}
+          <span>Author:</span> {data.books_by_pk.author.name}
         </Text>
         <Text>
           <span>All Books for this Author:</span>{' '}
         </Text>
         <List>
-          {data.book.author.books.map((item: ItemType) => (
+          {data.books_by_pk.author.books.map((item: ItemType) => (
             <ListItem key={item.id}>{item.name}</ListItem>
           ))}
         </List>
@@ -68,7 +68,7 @@ export default function BookList({ bookID }: PropsType) {
 }
 
 /*---> Styles <---*/
-export const StyledCard = styled(Card)`
+const StyledCard = styled(Card)`
   /* border: 1px solid red; */
   padding: 30px;
   display: flex;
@@ -83,14 +83,14 @@ export const StyledCard = styled(Card)`
   scrollbar-width: none; //for firefox
 `
 
-export const Title = styled.p`
+const Title = styled.p`
   /* border: 1px solid red; */
   font-size: 20px;
   font-weight: bold;
   margin: 20px;
 `
 
-export const Text = styled.p`
+const Text = styled.p`
   /* border: 1px solid red; */
   font-weight: bold;
   margin-bottom: 10px;
@@ -100,22 +100,22 @@ export const Text = styled.p`
   }
 `
 
-export const ErrorText = styled.p`
+const ErrorText = styled.p`
   /* border: 1px solid red; */
   margin: auto;
 `
 
-export const List = styled.ul`
+const List = styled.ul`
   /* border: 1px solid red; */
 `
 
-export const ListItem = styled.li`
+const ListItem = styled.li`
   /* border: 1px solid red; */
   font-weight: bold;
   margin-bottom: 10px;
 `
 
-export const SpinnerWrapper = styled.div`
+const SpinnerWrapper = styled.div`
   /* border: 1px solid red; */
   margin: auto;
   display: flex;
