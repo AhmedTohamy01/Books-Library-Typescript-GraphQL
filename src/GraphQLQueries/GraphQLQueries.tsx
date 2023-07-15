@@ -19,8 +19,8 @@ export const GET_ALL_AUTHORS = gql`
 `
 
 export const GET_BOOK = gql`
-  query ($bookID: ID!) {
-    book(id: $bookID) {
+  query ($bookID: Int!) {
+    books_by_pk(id: $bookID) {
       name
       genre
       author {
@@ -35,7 +35,7 @@ export const GET_BOOK = gql`
 
 export const ADD_AUTHOR = gql`
   mutation ($name: String!, $age: Int!) {
-    addAuthor(name: $name, age: $age) {
+    insert_authors_one(object: { name: $name, age: $age }) {
       name
       age
     }
@@ -43,8 +43,10 @@ export const ADD_AUTHOR = gql`
 `
 
 export const ADD_BOOK = gql`
-  mutation ($name: String!, $genre: String!, $authorId: String!) {
-    addBook(name: $name, genre: $genre, authorId: $authorId) {
+  mutation ($name: String!, $genre: String!, $author_id: Int!) {
+    insert_books_one(
+      object: { name: $name, genre: $genre, author_id: $author_id }
+    ) {
       name
       genre
     }
