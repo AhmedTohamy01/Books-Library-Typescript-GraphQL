@@ -1,9 +1,6 @@
 
 <h1 align="center">
-  <div>
-  <img title="TypeScript" alt="TypeScript" height=150
-      src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/Typescript_logo_2020.svg/1024px-Typescript_logo_2020.svg.png">
-  </div>
+  
   <img title="Books Library" src="https://github.com/AhmedTohamy01/Books-Library-GraphQL/blob/main/public/img1.jpg" alt="React + GraphQL + Apollo" width="1000" />
   <br>
     Typescript Version Of GraphQL Books Library Built Using React.JS, GraphQL, Apollo Client, Node.JS, Express.JS and MongoDB.
